@@ -32,9 +32,10 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <AuthProvider>
-          <CartProvider>
+        <CartProvider>
+          <AuthProvider>
             <Routes>
+              
               {/* --- RUTAS DE LA TIENDA --- */}
               <Route path="/" element={<TiendaHomePage />} />
 
@@ -63,8 +64,8 @@ function App() {
               <Route path="/dashboard/perfil" element={<AdminProfilePage />} /> 
               
             </Routes>
-          </CartProvider>
-        </AuthProvider>
+          </AuthProvider>
+        </CartProvider>
       </BrowserRouter>
     </div>
   );
