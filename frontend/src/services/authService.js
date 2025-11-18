@@ -9,25 +9,22 @@ const API_URL = 'http://localhost:4000/api';
 export const register = async (formData) => {
   try {
     const { name, email, password } = formData;
-    
-    // Llama al endpoint POST /api/register
     const response = await axios.post(`${API_URL}/register`, {
-      name,
-      email,
-      password,
+      name, email, password,
     });
-
-    // Si tiene éxito, devuelve el usuario (sin el hash)
     return { user: response.data, error: null };
-
   } catch (error) {
-    // Si la API devuelve un error (ej. email ya existe), lo capturamos
-    console.error("Error en el registro:", error.response.data);
-    return { 
-      user: null, 
-      // Devolvemos el mensaje de error que viene del backend
-      error: error.response.data.error || 'Ocurrió un error inesperado.' 
-    };
+    // Si error.response existe, es un error del backend (ej. "Email duplicado")
+    // Si no existe, es un error de red (ej. CORS o el backend está caído)
+    let errorMessage = 'Ocurrió un error inesperado.';
+    if (error.response) {
+      errorMessage = error.response.data.error || errorMessage;
+    } else if (error.request) {
+      errorMessage = 'No se pudo conectar con el servidor. Revisa tu conexión.';
+    }
+    
+    console.error("Error en el registro:", error.message);
+    return { user: null, error: errorMessage };
   }
 };
 
@@ -52,13 +49,15 @@ export const login = async (formData) => {
     sessionStorage.setItem('token', token);
 
     return { user: user, error: null };
-
   } catch (error) {
-    // Si la API devuelve un error (ej. contraseña incorrecta), lo capturamos
-    console.error("Error en el login:", error.response.data);
-    return { 
-      user: null, 
-      error: error.response.data.error || 'Ocurrió un error inesperado.' 
-    };
+    let errorMessage = 'Correo o contraseña incorrectos.';
+    if (error.response) {
+      errorMessage = error.response.data.error || errorMessage;
+    } else if (error.request) {
+      errorMessage = 'No se pudo conectar con el servidor. Revisa tu conexión.';
+    }
+    
+    console.error("Error en el login:", error.message);
+    return { user: null, error: errorMessage };
   }
 };
