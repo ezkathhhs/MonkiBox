@@ -1,0 +1,38 @@
+.quick-action-card {
+  display: flex;
+  align-items: flex-start; /* Alinea los items arriba */
+  gap: 1.2rem;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+  transition: all 0.3s ease;
+  border: 1px solid #e0e0e0;
+}
+
+.quick-action-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #f7c873;
+}
+
+.qa-icon-wrapper {
+  font-size: 2rem; /* Tamaño del icono */
+  color: #f7c873; /* Color principal */
+  margin-top: 3px;
+}
+
+.qa-text-wrapper h3 {
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+.qa-text-wrapper p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}

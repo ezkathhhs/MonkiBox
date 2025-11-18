@@ -1,0 +1,34 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.tienda-container {
+  /* Contenedor principal para el contenido de la página */
+  flex: 1; /* Esto hace que el footer se empuje hacia abajo */
+  width: 100%;
+  max-width: 1400px; /* Hacemos la tienda un poco más ancha */
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem; /* Más espacio arriba/abajo */
+}
+
+footer {
+  width: 100%;
+}
+
+footer p {
+  text-align: center;
+  padding: 1.5rem 0;
+  background: #f7c873; /* Color amarillo principal */
+  color: #222;
+  margin-top: 3rem;
+  margin-bottom: 0;
+}

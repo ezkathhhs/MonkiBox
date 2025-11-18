@@ -1,0 +1,41 @@
+/* Copia todo el contenido de UserForm.css aquí */
+.form-field-select {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-field-select label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555;
+  font-weight: 600;
+}
+
+.form-field-select select {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: white;
+}
+
+/* --- AÑADE ESTO --- */
+
+/* Estilo para el Textarea */
+.form-field-select textarea {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  resize: vertical; /* Permite redimensionar verticalmente */
+}
+
+/* Grid para poner 2 campos en una fila */
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}

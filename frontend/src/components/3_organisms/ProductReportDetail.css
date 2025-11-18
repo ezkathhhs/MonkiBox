@@ -1,0 +1,101 @@
+.product-report-container {
+  padding: 0.5rem;
+}
+
+/* KPIs */
+.report-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.report-kpi-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid #eee;
+  text-align: center;
+  min-height: 120px;
+}
+
+.kpi-icon {
+  font-size: 2.2rem;
+}
+
+.report-kpi-card span {
+  font-size: 0.85rem;
+  color: #555;
+  display: block;
+}
+.report-kpi-card strong {
+  font-size: 1.6rem;
+  color: #000;
+  line-height: 1.2;
+}
+
+/* Lista de Órdenes */
+.report-orders-list h3 {
+  font-size: 1.2rem;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.report-orders-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.report-orders-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #fdfdfd;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  border: 1px solid #f0f0f0;
+}
+
+.order-info {
+  display: flex;
+  flex-direction: column;
+}
+.order-info strong {
+  font-size: 1rem;
+  color: #000;
+}
+.order-info span {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.order-quantity {
+  text-align: center;
+  flex-shrink: 0;
+  margin-left: 1rem;
+  background: #f0f0f0;
+  padding: 0.5rem;
+  border-radius: 6px;
+  min-width: 60px;
+}
+.order-quantity strong {
+  font-size: 1.3rem;
+  color: #007bff;
+  display: block;
+}
+.order-quantity span {
+  font-size: 0.8rem;
+  color: #333;
+}

@@ -1,0 +1,53 @@
+.carrito-container {
+  max-width: 1200px; /* Ancho máximo centrado */
+  margin: 0 auto;
+}
+
+.carrito-container h1 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: #2c3e50;
+}
+
+.cart-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* 2/3 para la lista, 1/3 para el resumen */
+  gap: 2.5rem;
+}
+
+.cart-items-list {
+  background: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.cart-summary-wrapper {
+  /* El resumen se queda fijo al hacer scroll */
+  position: sticky;
+  top: 100px; /* 100px desde el top (para no chocar con el nav) */
+}
+
+/* Estado de Carrito Vacío */
+.cart-empty {
+  text-align: center;
+  padding: 4rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+.cart-empty p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+.cart-empty .atomic-button {
+  width: auto;
+  padding: 0.8rem 1.5rem;
+}
+
+/* Responsividad */
+@media (max-width: 992px) {
+  .cart-content {
+    grid-template-columns: 1fr; /* 1 columna en pantallas medianas/pequeñas */
+  }
+}

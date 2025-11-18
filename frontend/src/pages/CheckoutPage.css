@@ -1,0 +1,126 @@
+.checkout-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.checkout-container h1 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: #2c3e50;
+}
+
+/* El grid principal */
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr; /* 60% formularios, 40% resumen */
+  gap: 2.5rem;
+}
+
+/* COLUMNA IZQUIERDA */
+.checkout-forms .form-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+.checkout-forms h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+/* Estilos de formulario (como en tu imagen) */
+.form-field {
+  margin-bottom: 1.2rem;
+}
+.form-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+.form-field input[type="text"],
+.form-field input[type="email"],
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Clave */
+}
+.form-field input:disabled {
+  background: #f4f4f4;
+  cursor: not-allowed;
+}
+.form-field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+/* COLUMNA DERECHA */
+.checkout-summary {
+  position: sticky;
+  top: 100px; /* Para que se quede fija */
+}
+.summary-card {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 2rem;
+}
+.summary-card h2 {
+  margin: 0 0 1.5rem 0;
+}
+/* Reutilizamos los estilos del resumen del carrito */
+.summary-row { display: flex; justify-content: space-between; margin-bottom: 1rem; }
+.summary-row.discount { color: #e53e3e; }
+.summary-row.total { font-size: 1.25rem; font-weight: bold; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #ddd; }
+.checkout-btn { width: 100% !important; margin-top: 1rem !important; }
+
+/* Lista de productos en el resumen */
+.checkout-product-list {
+  margin-top: 2rem;
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+}
+.checkout-product-list h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.checkout-product-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.checkout-product-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  object-fit: cover;
+}
+.item-info { flex-grow: 1; }
+.item-info p { margin: 0; font-weight: 600; }
+.item-info .item-price { font-size: 0.9rem; font-weight: 600; }
+.item-info .item-old-price { font-size: 0.8rem; color: #888; text-decoration: line-through; margin-left: 0.5rem; }
+
+/* Responsividad */
+@media (max-width: 992px) {
+  .checkout-grid {
+    grid-template-columns: 1fr; /* 1 columna */
+  }
+  .checkout-summary {
+    position: static; /* Quitamos el sticky */
+    order: -1; /* Ponemos el resumen ARRIBA en móviles */
+    margin-bottom: 2rem;
+  }
+}

@@ -1,0 +1,96 @@
+.confirmation-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 58vh;
+  z-index: 2000; /* Por encima de todo */
+}
+
+.confirmation-bubble {
+  position: relative;
+  background: white;
+  border: 3px solid #f7c873; /* Borde amarillo */
+  border-radius: 20px;
+  padding: 1.5rem 2rem 1.2rem;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  width: 300px;
+  
+  /* Animación de entrada */
+  animation: pop-in 0.2s ease-out;
+}
+
+/* El triángulo de la burbuja (como en tu imagen) */
+.confirmation-bubble:after {
+  content: '';
+  position: absolute;
+  bottom: -15px; /* Altura del triángulo */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  
+  /* Esto crea el borde amarillo */
+  border-top: 15px solid #f7c873; 
+}
+
+.confirmation-bubble p {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 1.5rem 0;
+}
+
+.confirmation-buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.confirmation-buttons button {
+  flex: 1;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-no {
+  background: #f1f1f1;
+  color: #555;
+  border: 1px solid #ddd;
+}
+.btn-no:hover {
+  background: #e0e0e0;
+}
+
+.btn-yes {
+  background: #28a745; /* Verde */
+  color: white;
+  border: 1px solid #218838;
+}
+.btn-yes:hover {
+  background: #218838;
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

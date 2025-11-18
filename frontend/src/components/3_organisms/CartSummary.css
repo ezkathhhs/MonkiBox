@@ -1,0 +1,78 @@
+.cart-summary {
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 2rem;
+}
+.cart-summary h2 {
+  font-size: 1.5rem;
+  margin: 0 0 1.5rem 0;
+  text-align: left;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+.summary-row span {
+  color: #555;
+}
+.summary-row.discount span {
+  color: #e53e3e;
+}
+
+.summary-row.total {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #ddd;
+}
+.summary-row.total strong {
+  color: #000;
+}
+
+.coupon-section {
+  margin-top: 2rem;
+  text-align: left;
+  margin-bottom: 1.8rem;
+}
+.coupon-section label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+.coupon-input {
+  display: flex;
+}
+.coupon-input input {
+  flex-grow: 1;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  font-size: 1rem;
+}
+.coupon-input button {
+  padding: 0.7rem 1.2rem;
+  border: 1px solid #888;
+  background: #a0a0a0;
+  color: white;
+  border-radius: 0 5px 5px 0;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Botón de Pago (Verde) */
+.checkout-btn {
+  width: 100% !important;
+  margin-top: 1.5rem !important;
+  background: #28a745 !important;
+  font-size: 1.1rem !important;
+  padding: 1rem 0 !important;
+}
+.checkout-btn:hover {
+  background: #218838 !important;
+}

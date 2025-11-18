@@ -1,0 +1,169 @@
+.product-detail-message {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 4rem;
+  color: #777;
+}
+.product-detail-message.error {
+  color: #e53e3e;
+}
+
+.breadcrumbs {
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+.breadcrumbs a {
+  color: #007bff;
+  text-decoration: none;
+}
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+.breadcrumbs span {
+  color: #777;
+}
+
+/* Layout principal de 2 columnas */
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+/* Columna Izquierda (Imágenes) */
+.product-images {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-image-container {
+  width: 100%;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.main-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1; /* Mantiene la imagen cuadrada */
+  object-fit: cover;
+  display: block;
+}
+
+/* Columna Derecha (Info) */
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 0.5rem 0;
+}
+
+.product-price {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.product-description {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.product-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.quantity-selector label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+.quantity-selector input[type="number"] {
+  width: 80px;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Estilo para el botón de 'Añadir al carrito' */
+.add-to-cart-btn {
+  /* Usamos !important para sobreescribir el estilo base de .atomic-button */
+  width: 100% !important;
+  background: #007bff !important; /* Azul como en el wireframe */
+  color: white !important;
+  font-size: 1.1rem !important;
+  padding: 1rem 0 !important;
+}
+.add-to-cart-btn:hover {
+  background: #0056b3 !important;
+}
+
+/* Sección Productos Relacionados */
+.related-products-section {
+  margin-top: 4rem;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 2.5rem;
+}
+.related-products-section h2 {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Responsividad para móviles */
+@media (max-width: 768px) {
+  .main-content {
+    grid-template-columns: 1fr; /* 1 columna en móvil */
+    gap: 2rem;
+  }
+  .product-title {
+    font-size: 2rem;
+  }
+  .product-price {
+    font-size: 1.75rem;
+  }
+}
+
+.related-products-section .product-grid {
+  /* Hacemos 5 columnas en lugar de 4 */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem; /* Reducimos el espacio */
+}
+
+/* Hacemos la tipografía de las tarjetas más pequeña */
+.related-products-section .product-name {
+  font-size: 0.85rem;
+  height: 2.4em; /* 2 líneas */
+}
+
+.related-products-section .product-price-normal,
+.related-products-section .product-price-offer .new-price {
+  font-size: 1.15rem; /* Precio más pequeño */
+}
+
+.related-products-section .shipping-info {
+  font-size: 0.75rem; /* Texto de envío más pequeño */
+  margin-top: 0.5rem;
+}

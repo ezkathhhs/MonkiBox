@@ -1,0 +1,38 @@
+.report-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  border: 1px solid #eee;
+}
+
+.stat-icon-wrapper {
+  font-size: 2.5rem;
+  color: #f7c873; /* Color MonkiBox */
+  background: #fff9e6;
+  padding: 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  line-height: 1.2;
+}
+
+.stat-title {
+  font-size: 0.95rem;
+  color: #555;
+}

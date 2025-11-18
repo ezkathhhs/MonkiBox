@@ -1,0 +1,33 @@
+/* Importamos los estilos base que ya teníamos */
+@import './UserTable.css';
+
+/* Estilos específicos para la tabla de productos */
+.cell-image {
+  width: 80px;
+}
+
+.product-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #f0f0f0;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-badge.status-active {
+  background-color: #e6f7f0;
+  color: #008a4c;
+}
+
+.status-badge.status-inactive {
+  background-color: #fcebeb;
+  color: #d92d20;
+}

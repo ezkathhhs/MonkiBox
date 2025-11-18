@@ -1,0 +1,113 @@
+/* Reutilizamos el dropdown del UserTable */
+@import './UserTable.css'; 
+
+.admin-order-card {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  border-left: 5px solid #ccc; /* Borde de estado inicial */
+}
+
+/* Colores de estado */
+.admin-order-card.is-loading,
+.admin-order-card:has(.status-pill.preparando) {
+  border-left-color: #007bff;
+}
+.admin-order-card:has(.status-pill.en-espera) {
+  border-left-color: #ffc107;
+}
+.admin-order-card:has(.status-pill.finalizado) {
+  border-left-color: #28a745;
+}
+
+.card-main-info {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.info-col {
+  display: flex;
+  flex-direction: column;
+}
+.info-col span {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.info-col strong {
+  font-size: 1rem;
+  color: #333;
+}
+
+.card-status-section {
+  width: 150px;
+  text-align: center;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+.status-pill.en-espera {
+  background-color: #fff8e1;
+  color: #f57f17;
+}
+.status-pill.preparando {
+  background-color: #e6f2ff;
+  color: #0056b3;
+}
+.status-pill.finalizado {
+  background-color: #e6f7f0;
+  color: #008a4c;
+}
+
+/* Animación de "Preparando" */
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(0, 86, 179, 0.3);
+  border-top-color: #0056b3;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Menú de 3 puntos */
+.card-actions {
+  position: relative;
+  width: 50px;
+  text-align: right;
+}
+.card-actions .dropdown-menu {
+  right: 0; /* Lo alineamos a la derecha */
+}
+
+/* Submenú de estado */
+.status-submenu {
+  margin-top: 5px;
+  border-top: 1px solid #eee;
+  background: #fdfdfd;
+}
+.status-submenu button {
+  font-size: 0.85rem;
+  padding: 8px 15px;
+  color: #333;
+}
+.status-submenu button:hover {
+  background: #f0f0f0;
+}

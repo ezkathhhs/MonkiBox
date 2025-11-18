@@ -1,0 +1,16 @@
+.atomic-button {
+  width: 100%;
+  padding: 0.8rem; 
+  background: #f7c873; 
+  border: none;
+  border-radius: 5px; 
+  color: #222; 
+  font-size: 1.1rem; 
+  font-weight: bold; 
+  cursor: pointer;
+  transition: background 0.2s; 
+}
+
+.atomic-button:hover {
+  background: #e6b14c; 
+}

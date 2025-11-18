@@ -1,0 +1,34 @@
+.promo-section {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.promo-section h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.promo-section p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.placeholder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.placeholder-card {
+  height: 300px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: #999;
+  border: 1px dashed #ccc;
+}

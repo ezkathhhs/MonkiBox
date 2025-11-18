@@ -1,0 +1,27 @@
+.subnav-tienda {
+  background-color: #dbb367;
+  padding: 0.4rem 2rem;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.subnav-tienda-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.subnav-tienda-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.subnav-tienda-links a:hover {
+  background-color: #f7c873;
+  color: #000;
+}

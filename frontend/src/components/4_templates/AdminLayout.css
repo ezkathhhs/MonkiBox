@@ -1,0 +1,151 @@
+/* --- Tu nuevo CSS --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.navbar {
+    background-color: #f7c873; /* Tu color amarillo */
+    padding: 0.8rem 2rem;
+    display: flex;
+    /* AJUSTE: space-between para alinear logo y carrito */
+    justify-content: space-between; 
+    align-items: center;
+    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    min-height: 60px;
+}
+
+.logo {
+    position: static;
+    transform: none;
+    cursor: pointer;
+    text-decoration: none; /* Añadido para que el Link no se vea subrayado */
+}
+
+.logo-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+/* Barra de navegación inferior */
+.subnav {
+    background-color: #dbb367; /* Tu color amarillo oscuro */
+    padding: 0.4rem 2rem;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    position: static;
+}
+
+.subnav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.subnav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.subnav-links a:hover {
+    background-color: #f7c873; /* Tu efecto hover */
+    color: #000;
+}
+
+/* --- Fin de tu nuevo CSS --- */
+
+
+/* --- Estilos conservados del paso anterior (Botón Carrito, Contenedor, Footer) --- */
+.nav-btn {
+  background: #f7c873;
+  color: #222;
+  padding: 0.5rem 1.2rem;
+  border-radius: 5px;
+  /* El borde ahora usa el color del subnav para mejor contraste */
+  border: 1.5px solid #dbb367; 
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.2s, color 0.2s;
+  margin-left: 0.5rem;
+}
+
+.nav-btn:hover {
+  background: #e6b14c;
+  color: #fff;
+}
+
+/* Contenedor principal para el contenido de la página */
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  flex: 1; /* Esto hace que el footer se empuje hacia abajo */
+  overflow-x: auto;
+}
+
+footer {
+  width: 100%;
+}
+
+footer p {
+  text-align: center;
+  padding: 1.5rem 0;
+  background: #f7c873; /* Color amarillo principal */
+  color: #222;
+  margin-top: 3rem;
+  margin-bottom: 0;
+}
+
+/* --- Tus Estilos responsivos --- */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.8rem 1rem;
+        flex-direction: column; /* Tus reglas responsivas */
+        gap: 0.8rem;
+        justify-content: center; /* Centro los items cuando están en columna */
+    }
+    
+    .logo {
+        margin: 0.5rem 0;
+    }
+    
+    .subnav {
+        padding: 0.8rem 1rem;
+    }
+    
+    .subnav-links {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .subnav-links a {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}

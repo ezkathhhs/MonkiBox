@@ -1,0 +1,109 @@
+.nosotros-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+/* Encabezado */
+.nosotros-header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background-color: #fefcf8; /* Un amarillo muy pálido */
+  border-radius: 12px;
+  margin-bottom: 2.5rem;
+}
+
+.nosotros-logo {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 4px solid #f7c873; /* Borde de la marca */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.nosotros-header h1 {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.nosotros-subtitle {
+  font-size: 1.2rem;
+  color: #555;
+  font-weight: 300;
+}
+
+/* Secciones Generales */
+.nosotros-section {
+  margin-bottom: 2.5rem;
+}
+
+.nosotros-section h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid #f7c873;
+  display: inline-block;
+}
+
+.nosotros-section p {
+  font-size: 1.05rem;
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+/* Grid de Valores */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.value-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+  border-top: 4px solid #dbb367; /* Color del subnav */
+  transition: transform 0.2s;
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+}
+
+.value-card h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+/* Llamada a la acción (CTA) */
+.cta-section {
+  text-align: center;
+  background-color: #f8f9fa;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.nosotros-cta-btn {
+  display: inline-block;
+  background-color: #f7c873; /* Color de la marca */
+  color: #222;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 0.8rem 1.8rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.nosotros-cta-btn:hover {
+  background-color: #e6b14c;
+  transform: scale(1.05);
+}
