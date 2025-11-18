@@ -1,8 +1,12 @@
 import axios from 'axios';
 
+// process.env.REACT_APP_API_URL es la variable que pusimos en Render.
+// Si esa variable no existe, usará 'localhost'.
+const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:4000/api';
+
 // Crea una "instancia" de axios
 const api = axios.create({
-  baseURL: 'http://localhost:4000/api'
+  baseURL: baseURL
 });
 
 // Crea el "Interceptor"
