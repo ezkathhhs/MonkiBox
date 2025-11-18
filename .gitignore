@@ -1,0 +1,10 @@
+# Ignorar Node.js (carpetas de dependencias)
+/frontend/node_modules
+/backend/node_modules
+
+# Ignorar archivos de entorno (¡Contraseñas!)
+/backend/.env
+
+# Ignorar archivos del sistema operativo
+.DS_Store
+Thumbs.db
