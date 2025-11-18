@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../api/axiosConfig';
 import './AdminOrderCard.css';
-
-const API_URL = 'http://localhost:4000/api';
 
 const AdminOrderCard = ({ order, onInfoClick }) => {
   const [currentStatus, setCurrentStatus] = useState(order.order_status);
@@ -21,7 +19,7 @@ const AdminOrderCard = ({ order, onInfoClick }) => {
     }
     
     try {
-      const response = await axios.put(`${API_URL}/order-status/${order.order_id}`, { status: newStatus });
+      const response = await api.put(`/order-status/${order.order_id}`, { status: newStatus });
       setCurrentStatus(response.data.order_status);
       
       if (newStatus !== 'Preparando') {

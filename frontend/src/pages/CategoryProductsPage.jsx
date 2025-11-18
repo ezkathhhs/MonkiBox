@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'; // Para leer la categoría de la URL
-import axios from 'axios';
+import api from '../api/axiosConfig';
 import TiendaLayout from '../components/4_templates/TiendaLayout';
 import ProductGrid from '../components/3_organisms/ProductGrid';
 import './ProductosPage.css'; // Reutilizamos el CSS de la página de productos
-
-const API_URL = 'http://localhost:4000/api';
 
 const CategoryProductsPage = () => {
   const { categoryName } = useParams(); // Obtenemos 'BlindBox', 'Peluche', etc.
@@ -18,7 +16,7 @@ const CategoryProductsPage = () => {
       try {
         setLoading(true);
         // Obtenemos TODOS los productos (idealmente el backend filtraría, pero esto sirve para empezar)
-        const response = await axios.get(`${API_URL}/products`);
+        const response = await api.get('/products');
         
         // Filtramos en el frontend:
         // 1. Que coincida la categoría

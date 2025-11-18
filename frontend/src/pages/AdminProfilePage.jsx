@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axiosConfig';
 import { useAuth } from '../context/AuthContext';
 import AdminLayout from '../components/4_templates/AdminLayout';
 import Button from '../components/1_atoms/Button';
 import SuccessToast from '../components/1_atoms/SuccessToast';
 import './AdminProfilePage.css';
-
-const API_URL = 'http://localhost:4000/api';
 
 const AdminProfilePage = () => {
   const { user, updateUser } = useAuth();
@@ -38,7 +36,7 @@ const AdminProfilePage = () => {
     try {
       setLoading(true);
       // Enviamos los datos actuales + la nueva imagen
-      const response = await axios.put(`${API_URL}/users/${user.user_id}`, {
+      const response = await api.put(`/users/${user.user_id}`, {
         name: user.name,
         email: user.email,
         role: user.role,

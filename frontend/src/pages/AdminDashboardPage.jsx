@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react'; // 1. Importamos hooks
-import axios from 'axios'; // 2. Importamos axios
+import React, { useState, useEffect } from 'react';
+import api from '../api/axiosConfig';
 import AdminLayout from '../components/4_templates/AdminLayout';
 import QuickActionGrid from '../components/3_organisms/QuickActionGrid';
 import './AdminDashboardPage.css';
 
-// 3. Definimos la URL de la API
-const API_URL = 'http://localhost:4000/api';
-
 const AdminDashboardPage = () => {
   
-  // 4. Creamos un estado para guardar los números
+  // Creamos un estado para guardar los números
   // Usamos '...' como indicador de carga
   const [stats, setStats] = useState({
     products: '...',
@@ -17,11 +14,11 @@ const AdminDashboardPage = () => {
     orders: '...'
   });
 
-  // 5. Usamos useEffect para cargar los datos al montar la página
+  // Usamos useEffect para cargar los datos al montar la página
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await axios.get(`${API_URL}/stats/summary`);
+        const response = await api.get(`/stats/summary`);
         setStats(response.data); // Guardamos los números de la API
       } catch (error) {
         console.error("Error al cargar estadísticas:", error);
@@ -68,7 +65,6 @@ const AdminDashboardPage = () => {
       </div>
       
       <QuickActionGrid />
-      
     </AdminLayout>
   );
 };

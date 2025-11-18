@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axiosConfig';
 import AdminLayout from '../components/4_templates/AdminLayout';
 import ProductTable from '../components/3_organisms/ProductTable';
 import Modal from '../components/2_molecules/Modal';
@@ -8,8 +8,6 @@ import Button from '../components/1_atoms/Button';
 import Alert from '../components/1_atoms/Alert';
 import './AdminUserPage.css'; // Reutilizamos el CSS de la página de admin
 import ProductReportDetail from '../components/3_organisms/ProductReportDetail';
-
-const API_URL = 'http://localhost:4000/api';
 
 const AdminProductPage = () => {
   const [products, setProducts] = useState([]); // Lista de productos
@@ -20,7 +18,7 @@ const AdminProductPage = () => {
   // 1. Cargar productos
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(`${API_URL}/products`);
+      const response = await api.get('/products');
       setProducts(response.data);
     } catch (err) {
       setError('Error al cargar los productos.');
@@ -45,7 +43,7 @@ const AdminProductPage = () => {
   // 3. Acciones CRUD
   const handleCreateProduct = async (formData) => {
     try {
-      await axios.post(`${API_URL}/products`, formData);
+      await api.post('/products', formData);
       fetchProducts();
       handleCloseModal();
     } catch (err) {
@@ -55,7 +53,7 @@ const AdminProductPage = () => {
 
   const handleUpdateProduct = async (formData) => {
     try {
-      await axios.put(`${API_URL}/products/${currentProduct.product_id}`, formData);
+      await api.put(`/products/${currentProduct.product_id}`, formData);
       fetchProducts();
       handleCloseModal();
     } catch (err) {
@@ -66,7 +64,7 @@ const AdminProductPage = () => {
   const handleDeleteProduct = async (productId) => {
     if (window.confirm('¿Estás seguro de que deseas eliminar este producto?')) {
       try {
-        await axios.delete(`${API_URL}/products/${productId}`);
+        await api.delete(`/products/${productId}`);
         fetchProducts();
       } catch (err) {
         setError(err.response?.data?.error || 'Error al eliminar el producto.');

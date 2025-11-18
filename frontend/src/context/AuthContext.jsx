@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }) => {
   // Función para cerrar sesión
   const logout = () => {
     sessionStorage.removeItem('loggedUser');
+    sessionStorage.removeItem('token');
     setUser(null);
     clearCart();
     navigate('/login');

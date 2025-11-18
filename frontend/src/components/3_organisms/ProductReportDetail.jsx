@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/axiosConfig';
 import './ProductReportDetail.css'; // Crearemos este
 import { FaDollarSign, FaBox, FaCubes } from 'react-icons/fa'; // Iconos
-
-const API_URL = 'http://localhost:4000/api';
 
 // Formateadores
 const formatPrice = (price) => new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(price);
@@ -19,7 +17,7 @@ const ProductReportDetail = ({ productId }) => {
     const fetchReport = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${API_URL}/reports/product/${productId}`);
+        const response = await api.get(`/reports/product/${productId}`);
         setReport(response.data);
       } catch (error) {
         console.error("Error al cargar reporte:", error);

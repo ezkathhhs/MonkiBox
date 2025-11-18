@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/axiosConfig';
 import './UserOrdersList.css'; // Crearemos este
-
-const API_URL = 'http://localhost:4000/api';
 
 const UserOrdersList = ({ userId, onViewReceiptClick }) => {
   const [orders, setOrders] = useState([]);
@@ -18,7 +16,7 @@ const UserOrdersList = ({ userId, onViewReceiptClick }) => {
     const fetchOrders = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${API_URL}/user-orders/${userId}`);
+        const response = await api.get(`/user-orders/${userId}`);
         setOrders(response.data);
       } catch (err) {
         setError('Error al cargar el historial.');

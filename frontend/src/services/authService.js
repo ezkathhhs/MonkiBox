@@ -45,10 +45,11 @@ export const login = async (formData) => {
     });
 
     // Si el login es exitoso, la API devuelve los datos del usuario (incluyendo el 'role')
-    const user = response.data;
+    const { user, token } = response.data;
 
     // Guardamos el usuario logeado en sessionStorage (como hacíamos antes)
     sessionStorage.setItem('loggedUser', JSON.stringify(user));
+    sessionStorage.setItem('token', token);
 
     return { user: user, error: null };
 

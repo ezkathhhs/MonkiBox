@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
-const bcrypt = require('bcryptjs'); // Importamos bcrypt
-const { pool, testConnection } = require('./db'); // Importamos el 'pool'
+const bcrypt = require('bcryptjs');
+const { pool, testConnection } = require('./db');
+const jwt = require('jsonwebtoken');
+const { verifyToken, isAdmin } = require('./middleware/authMiddleware');
 require('dotenv').config();
 
 const app = express();
@@ -71,12 +73,19 @@ app.post('/api/login', async (req, res) => {
       return res.status(401).json({ error: 'Correo o contraseña incorrectos.' });
     }
 
+    // El token contendrá el ID y el ROL del usuario
+    const token = jwt.sign(
+      { userId: user.user_id, role: user.role },
+      process.env.JWT_SECRET || 'miclavesecreta123', // ¡Crea esta variable en tu .env!
+      { expiresIn: '24h' } // El token expira en 24 horas
+    );
+
     // 6. ¡Login exitoso!
     // Borramos el hash antes de devolver la info al frontend
     delete user.password_hash;
 
     // Enviamos los datos del usuario (incluyendo el 'role')
-    res.status(200).json(user); // 200 = OK
+    res.status(200).json({ user, token }); // 200 = OK
 
   } catch (err) {
     console.error(err.message);
@@ -85,7 +94,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 // --- 3. OBTENER TODOS LOS USUARIOS (READ) ---
-app.get('/api/users', async (req, res) => {
+app.get('/api/users', verifyToken, isAdmin, async (req, res) => {
   try {
     // Obtenemos todos los usuarios pero excluimos el hash de la contraseña
     const allUsers = await pool.query(
@@ -99,7 +108,7 @@ app.get('/api/users', async (req, res) => {
 });
 
 // --- 4. CREAR NUEVO USUARIO (por Admin) (CREATE) ---
-app.post('/api/users', async (req, res) => {
+app.post('/api/users', verifyToken, isAdmin, async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
 
@@ -130,7 +139,7 @@ app.post('/api/users', async (req, res) => {
 });
 
 // --- 5. ACTUALIZAR UN USUARIO ---
-app.put('/api/users/:id', async (req, res) => {
+app.put('/api/users/:id', verifyToken, isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     // Ahora recibimos también profile_picture
@@ -167,7 +176,7 @@ app.put('/api/users/:id', async (req, res) => {
 });
 
 // --- 6. ELIMINAR UN USUARIO (DELETE) ---
-app.delete('/api/users/:id', async (req, res) => {
+app.delete('/api/users/:id', verifyToken, isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     const deleteOp = await pool.query("DELETE FROM users WHERE user_id = $1 RETURNING *", [id]);
@@ -196,7 +205,7 @@ app.get('/api/products', async (req, res) => {
 });
 
 // --- 8. CREAR NUEVO PRODUCTO ---
-app.post('/api/products', async (req, res) => {
+app.post('/api/products', verifyToken, isAdmin, async (req, res) => {
   try {
     // Recibimos 'price' como el valor base que ingresa el usuario
     let { name, description, price, stock, category, status, image_url, discount_percentage } = req.body;
@@ -227,7 +236,7 @@ app.post('/api/products', async (req, res) => {
 });
 
 // --- 9. ACTUALIZAR UN PRODUCTO ---
-app.put('/api/products/:id', async (req, res) => {
+app.put('/api/products/:id', verifyToken, isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     // Nota: Esperamos que el frontend nos envíe el precio "base" nuevamente
@@ -260,7 +269,7 @@ app.put('/api/products/:id', async (req, res) => {
 });
 
 // --- 10. ELIMINAR UN PRODUCTO (DELETE) ---
-app.delete('/api/products/:id', async (req, res) => {
+app.delete('/api/products/:id', verifyToken, isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     const deleteOp = await pool.query("DELETE FROM products WHERE product_id = $1 RETURNING *", [id]);
@@ -322,7 +331,7 @@ app.get('/api/related-products/:id', async (req, res) => {
 });
 
 // --- 13. CREAR NUEVA ORDEN (CHECKOUT) ---
-app.post('/api/orders', async (req, res) => {
+app.post('/api/orders', verifyToken, async (req, res) => {
 
   console.log('INTENTO DE PAGO RECIBIDO. Verificando datos...');
   // Nota: En un proyecto real, usaríamos una "transacción" de base de datos aquí.
@@ -385,7 +394,7 @@ app.post('/api/orders', async (req, res) => {
 });
 
 // --- 14. OBTENER ESTADÍSTICAS DEL DASHBOARD ---
-app.get('/api/stats/summary', async (req, res) => {
+app.get('/api/stats/summary', verifyToken, isAdmin, async (req, res) => {
   try {
     // 1. Contar Productos
     const productsQuery = pool.query("SELECT COUNT(*) FROM products");
@@ -422,7 +431,7 @@ app.get('/api/stats/summary', async (req, res) => {
 });
 
 // --- 15. OBTENER TODAS LAS ÓRDENES (Para Admin) ---
-app.get('/api/orders', async (req, res) => {
+app.get('/api/orders', verifyToken, isAdmin, async (req, res) => {
   try {
     // Obtenemos las órdenes, de la más nueva a la más antigua
     const allOrders = await pool.query(
@@ -437,7 +446,7 @@ app.get('/api/orders', async (req, res) => {
 
 // --- 16. OBTENER DETALLES DE UNA ORDEN (Para Modal) ---
 // Este endpoint devuelve los datos TAL CUAL los necesita el OrderSuccessModal
-app.get('/api/order-details/:id', async (req, res) => {
+app.get('/api/order-details/:id', verifyToken, isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -463,7 +472,7 @@ app.get('/api/order-details/:id', async (req, res) => {
 });
 
 // --- 17. ACTUALIZAR ESTADO DE UNA ORDEN ---
-app.put('/api/order-status/:id', async (req, res) => {
+app.put('/api/order-status/:id', verifyToken, isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body; // Recibe "En espera", "Preparando", "Finalizado"
@@ -486,7 +495,7 @@ app.put('/api/order-status/:id', async (req, res) => {
 });
 
 // --- 18. OBTENER ÓRDENES DE UN USUARIO ESPECÍFICO ---
-app.get('/api/user-orders/:userId', async (req, res) => {
+app.get('/api/user-orders/:userId', verifyToken, isAdmin, async (req, res) => {
   try {
     const { userId } = req.params;
 
@@ -506,7 +515,7 @@ app.get('/api/user-orders/:userId', async (req, res) => {
 });
 
 // --- 19. OBTENER REPORTES DE RESUMEN (KPIs + Métricas) ---
-app.get('/api/reports/summary', async (req, res) => {
+app.get('/api/reports/summary', verifyToken, isAdmin, async (req, res) => {
   try {
     // Definimos las consultas
     const kpiQuery = pool.query(`
@@ -552,7 +561,7 @@ app.get('/api/reports/summary', async (req, res) => {
 });
 
 // --- 20. OBTENER PRODUCTOS POPULARES (Más Vendidos + Stock) ---
-app.get('/api/reports/top-selling', async (req, res) => {
+app.get('/api/reports/top-selling', verifyToken, isAdmin, async (req, res) => {
   try {
     // Ahora hacemos un JOIN para obtener el stock del producto
     const topProducts = await pool.query(
@@ -574,7 +583,7 @@ app.get('/api/reports/top-selling', async (req, res) => {
 });
 
 // --- 21. OBTENER ÓRDENES RECIENTES (Igual que antes) ---
-app.get('/api/reports/recent-orders', async (req, res) => {
+app.get('/api/reports/recent-orders', verifyToken, isAdmin, async (req, res) => {
   try {
     const recentOrders = await pool.query(
       "SELECT order_id, customer_name, total_amount, order_status FROM orders ORDER BY created_at DESC LIMIT 5"
@@ -587,7 +596,7 @@ app.get('/api/reports/recent-orders', async (req, res) => {
 });
 
 // --- 22. NUEVO: VENTAS POR DÍA (Para Gráfico de Línea) ---
-app.get('/api/reports/sales-by-day', async (req, res) => {
+app.get('/api/reports/sales-by-day', verifyToken, isAdmin, async (req, res) => {
   try {
     // Agrupa las ventas por día de la última semana
     const salesByDay = await pool.query(`
@@ -607,7 +616,7 @@ app.get('/api/reports/sales-by-day', async (req, res) => {
 });
 
 // --- 23. NUEVO: DISTRIBUCIÓN DE CATEGORÍAS ---
-app.get('/api/reports/category-distribution', async (req, res) => {
+app.get('/api/reports/category-distribution', verifyToken, isAdmin, async (req, res) => {
   try {
     const categoryDist = await pool.query(`
       SELECT 
@@ -626,7 +635,7 @@ app.get('/api/reports/category-distribution', async (req, res) => {
 });
 
 // --- 24. NUEVO: REPORTE POR PRODUCTO ID ---
-app.get('/api/reports/product/:id', async (req, res) => {
+app.get('/api/reports/product/:id', verifyToken, isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
 

@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axiosConfig';
 import AdminLayout from '../components/4_templates/AdminLayout';
 import UserTable from '../components/3_organisms/UserTable';
 import Modal from '../components/2_molecules/Modal';
 import UserForm from '../components/3_organisms/UserForm';
 import Button from '../components/1_atoms/Button';
 import Alert from '../components/1_atoms/Alert';
-import './AdminUserPage.css'; 
+import './AdminUserPage.css';
 
 // --- 1. IMPORTAR LOS NUEVOS COMPONENTES ---
 import UserOrdersList from '../components/3_organisms/UserOrdersList';
 import OrderSuccessModal from '../components/3_organisms/OrderSuccessModal';
-
-const API_URL = 'http://localhost:4000/api';
 
 const AdminUserPage = () => {
   const [users, setUsers] = useState([]);
@@ -20,13 +18,13 @@ const AdminUserPage = () => {
   const [currentUser, setCurrentUser] = useState(null); 
   const [error, setError] = useState(null);
 
-  // --- 2. NUEVOS ESTADOS PARA EL MODAL DE BOLETA ---
+  // --- ESTADOS PARA EL MODAL DE BOLETA ---
   const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false);
   const [selectedOrderData, setSelectedOrderData] = useState(null);
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`${API_URL}/users`);
+      const response = await api.get('/users');
       setUsers(response.data);
     } catch (err) {
       setError('Error al cargar los usuarios.');
@@ -52,7 +50,7 @@ const AdminUserPage = () => {
   // --- 3. NUEVA FUNCIÓN PARA ABRIR LA BOLETA (desde la lista) ---
   const handleViewReceipt = async (orderId) => {
     try {
-      const response = await axios.get(`${API_URL}/order-details/${orderId}`);
+      const response = await api.get(`/order-details/${orderId}`);
       setSelectedOrderData(response.data);
       setIsReceiptModalOpen(true); // Abre el segundo modal
     } catch (err) {
@@ -68,9 +66,41 @@ const AdminUserPage = () => {
   };
 
   // --- (Lógica de Create, Update, Delete se mantiene igual) ---
-  const handleCreateUser = async (formData) => { /* ... (código existente sin cambios) ... */ };
-  const handleUpdateUser = async (formData) => { /* ... (código existente sin cambios) ... */ };
-  const handleDeleteUser = async (userId) => { /* ... (código existente sin cambios) ... */ };
+  const handleCreateUser = async (formData) => {
+    try {
+      await api.post('/users', formData);
+      fetchUsers(); 
+      handleCloseModal();
+    } catch (err) {
+      setError(err.response.data.error || 'Error al crear el usuario.');
+    }
+  };
+
+  const handleUpdateUser = async (formData) => {
+    const dataToSend = { ...formData };
+    if (!dataToSend.password) {
+      delete dataToSend.password;
+    }
+
+    try {
+      await api.put(`/users/${currentUser.user_id}`, dataToSend);
+      fetchUsers(); 
+      handleCloseModal();
+    } catch (err) {
+      setError(err.response.data.error || 'Error al actualizar el usuario.');
+    }
+  };
+
+  const handleDeleteUser = async (userId) => {
+    if (window.confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+      try {
+        await api.delete(`/users/${userId}`);
+        fetchUsers(); 
+      } catch (err) {
+        setError(err.response.data.error || 'Error al eliminar el usuario.');
+      }
+    }
+  };
 
   return (
     <AdminLayout>
@@ -84,7 +114,7 @@ const AdminUserPage = () => {
       <UserTable
         users={users}
         onEdit={(user) => handleOpenModal('edit', user)}
-        onHistory={(user) => handleOpenModal('history', user)} // <-- Esto ahora funciona
+        onHistory={(user) => handleOpenModal('history', user)}
         onDelete={handleDeleteUser}
       />
 

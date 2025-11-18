@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axiosConfig';
 import AdminLayout from '../components/4_templates/AdminLayout';
 import AdminOrderCard from '../components/3_organisms/AdminOrderCard';
-import OrderSuccessModal from '../components/3_organisms/OrderSuccessModal'; // ¡Reutilizado!
-
-const API_URL = 'http://localhost:4000/api';
+import OrderSuccessModal from '../components/3_organisms/OrderSuccessModal';
 
 const AdminOrdersPage = () => {
   const [orders, setOrders] = useState([]);
@@ -18,7 +16,7 @@ const AdminOrdersPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`${API_URL}/orders`);
+        const response = await api.get('/orders');
         setOrders(response.data);
       } catch (error) {
         console.error("Error al cargar órdenes:", error);
@@ -34,7 +32,7 @@ const AdminOrdersPage = () => {
   const handleInfoClick = async (orderId) => {
     try {
       // Llama al nuevo endpoint para obtener los detalles completos
-      const response = await axios.get(`${API_URL}/order-details/${orderId}`);
+      const response = await api.get(`/order-details/${orderId}`);
       setSelectedOrderData(response.data); // Guarda { order, items }
       setIsModalOpen(true);
     } catch (error) {

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axiosConfig';
 import AdminLayout from '../components/4_templates/AdminLayout';
-import './AdminReportPage.css'; // Vamos a actualizar este CSS
+import './AdminReportPage.css';
 
 // Componentes de Gráficos
 import SalesLineChart from '../components/3_organisms/charts/SalesLineChart';
 import CategoryDoughnutChart from '../components/3_organisms/charts/CategoryDoughnutChart';
-
-const API_URL = 'http://localhost:4000/api';
 
 const AdminReportPage = () => {
   // Estados para cada reporte
@@ -26,11 +24,11 @@ const AdminReportPage = () => {
       try {
         setLoading(true);
         const [summaryRes, topProductsRes, recentOrdersRes, salesDayRes, categoryRes] = await Promise.all([
-          axios.get(`${API_URL}/reports/summary`),
-          axios.get(`${API_URL}/reports/top-selling`),
-          axios.get(`${API_URL}/reports/recent-orders`),
-          axios.get(`${API_URL}/reports/sales-by-day`),
-          axios.get(`${API_URL}/reports/category-distribution`)
+          api.get('/reports/summary'),
+          api.get('/reports/top-selling'),
+          api.get('/reports/recent-orders'),
+          api.get('/reports/sales-by-day'),
+          api.get('/reports/category-distribution')
         ]);
 
         setSummary(summaryRes.data);

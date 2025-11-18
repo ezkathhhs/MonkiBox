@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axiosConfig';
 import TiendaLayout from '../components/4_templates/TiendaLayout';
 import ProductGrid from '../components/3_organisms/ProductGrid';
 import SuccessToast from '../components/1_atoms/SuccessToast';
 import Button from '../components/1_atoms/Button';
 import { useCart } from '../context/CartContext';
 import './ProductDetailPage.css';
-
-const API_URL = 'http://localhost:4000/api';
 
 const ProductDetailPage = () => { 
   const { id } = useParams();
@@ -25,8 +23,8 @@ const ProductDetailPage = () => {
       setLoading(true);
       setError(null);
       try {
-        const productPromise = axios.get(`${API_URL}/products/${id}`);
-        const relatedPromise = axios.get(`${API_URL}/related-products/${id}`);
+        const productPromise = api.get(`/products/${id}`);
+        const relatedPromise = api.get(`/related-products/${id}`);
         
         const [productResponse, relatedResponse] = await Promise.all([
           productPromise,

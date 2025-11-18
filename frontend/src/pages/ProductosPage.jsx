@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axiosConfig';
 import TiendaLayout from '../components/4_templates/TiendaLayout';
 import ProductGrid from '../components/3_organisms/ProductGrid';
 import './ProductosPage.css';
-
-const API_URL = 'http://localhost:4000/api';
 
 const ProductosPage = () => {
   const [products, setProducts] = useState([]);
@@ -15,7 +13,7 @@ const ProductosPage = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${API_URL}/products`);
+        const response = await api.get('/products');
         
         // 1. Filtramos solo productos 'activos'
         const activeProducts = response.data.filter(p => p.status === 'activo');

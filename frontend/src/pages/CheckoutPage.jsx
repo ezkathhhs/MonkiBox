@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axiosConfig';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { regiones, comunas } from '../utils/chilean_locations';
@@ -8,8 +8,6 @@ import TiendaLayout from '../components/4_templates/TiendaLayout';
 import OrderSuccessModal from '../components/3_organisms/OrderSuccessModal';
 import Button from '../components/1_atoms/Button';
 import './CheckoutPage.css';
-
-const API_URL = 'http://localhost:4000/api';
 
 const CheckoutPage = () => {
   const { user } = useAuth();
@@ -85,7 +83,7 @@ const CheckoutPage = () => {
 
     try {
       // 2. Enviar al backend
-      const response = await axios.post(`${API_URL}/orders`, orderToCreate);
+      const response = await api.post('/orders', orderToCreate);
       
       // 3. Mostrar boleta
       setCompletedOrder(response.data);
