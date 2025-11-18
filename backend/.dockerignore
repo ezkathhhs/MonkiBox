@@ -1,0 +1,4 @@
+# Ignoramos las dependencias que ya tenemos localmente.
+# Docker/Render instalará las suyas en la "caja".
+node_modules
+.env
