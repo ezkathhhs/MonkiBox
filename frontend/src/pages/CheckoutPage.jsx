@@ -73,7 +73,6 @@ const CheckoutPage = () => {
     e.preventDefault();
     if (cartItems.length === 0) return;
 
-    // 1. Crear el objeto de la orden
     const orderToCreate = {
       userInfo,
       shippingDetails,
@@ -82,14 +81,12 @@ const CheckoutPage = () => {
     };
 
     try {
-      // 2. Enviar al backend
       const response = await api.post('/orders', orderToCreate);
       
-      // 3. Mostrar boleta
-      setCompletedOrder(response.data);
+      setCompletedOrder(response.data); 
       
-      // 4. Limpiar el carrito
       clearCart();
+      
     } catch (error) {
       console.error("Error al crear la orden:", error);
       alert("Hubo un error al procesar tu pago. Por favor, intenta de nuevo.");
@@ -202,7 +199,11 @@ const CheckoutPage = () => {
       </div>
       
       {/* El Modal de la Boleta */}
-      <OrderSuccessModal orderData={completedOrder} onClose={handleCloseModal} />
+      <OrderSuccessModal 
+        orderData={completedOrder} 
+        isOpen={!!completedOrder} 
+        onClose={handleCloseModal} 
+      />
     </TiendaLayout>
   );
 };

@@ -1,8 +1,10 @@
 import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useCart } from '../../context/CartContext'; // 1. IMPORTAR HOOK DEL CARRITO
-import Button from '../1_atoms/Button'; // 2. IMPORTAR EL BOTÓN
-import './ProductCard.css'; // Importamos nuestro CSS
+import { useCart } from '../../context/CartContext';
+import Button from '../1_atoms/Button';
+import SuccessToast from '../1_atoms/SuccessToast';
+import './ProductCard.css';
 
 // Función para formatear el precio (se mantiene)
 const formatPrice = (price) => {
@@ -16,8 +18,8 @@ const formatPrice = (price) => {
 const LOW_STOCK_THRESHOLD = 10;
 
 const ProductCard = ({ product }) => {
-  // 3. OBTENER FUNCIÓN DEL CARRITO
   const { addToCart } = useCart();
+  const [showToast, setShowToast] = useState(false);
   
   const { 
     product_id, 
@@ -29,26 +31,23 @@ const ProductCard = ({ product }) => {
     stock // Necesitamos el stock
   } = product;
 
-  // 4. LÓGICA DE STOCK PARA LA PÍLDORA
   const isOutOfStock = stock <= 0;
   const isLowStock = stock > 0 && stock <= LOW_STOCK_THRESHOLD;
   const isAvailable = stock > 0;
 
-  // 5. MANEJADOR DEL BOTÓN
-  // ¡Importante! Usamos e.preventDefault() para que al hacer clic en el botón,
-  // NO se active el Link de la tarjeta y nos lleve a la página de detalle.
   const handleAddToCart = (e) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product, 1);
-    // (Opcional: podrías añadir un toast de "Añadido")
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
   };
 
   return (
     // La tarjeta es un Link
     <Link to={`/producto/${product_id}`} className="product-card">
       
-      {/* 1. CAJA DE IMAGEN */}
+      {/* CAJA DE IMAGEN */}
       <div className="card-image-box">
         <img 
           src={image_url || '/mono.jpg'}
@@ -56,7 +55,7 @@ const ProductCard = ({ product }) => {
           className="card-image"
         />
         
-        {/* --- 6. PÍLDORA DE STOCK (AÑADIDA) --- */}
+        {/* --- PÍLDORA DE STOCK --- */}
         {isAvailable && (
           <span className={`stock-pill ${isLowStock ? 'low-stock' : 'in-stock'}`}>
             {isLowStock ? `¡${stock} pzs disponibles!` : '¡Llévatelo ahora!'}
@@ -67,7 +66,7 @@ const ProductCard = ({ product }) => {
         )}
       </div>
 
-      {/* 2. CAJA DE INFORMACIÓN */}
+      {/* CAJA DE INFORMACIÓN */}
       <div className="card-info-box">
         {isAvailable && (
           <span className={`stock-pill ${isLowStock ? 'low-stock' : 'in-stock'}`}>
@@ -79,7 +78,7 @@ const ProductCard = ({ product }) => {
         )}
         <h3 className="card-name">{name}</h3>
         
-        {/* 3. CONTENEDOR DE PRECIO (Se mantiene igual) */}
+        {/* CONTENEDOR DE PRECIO */}
         <div className="price-container">
           {discount_percentage > 0 && old_price ? (
             <div className="offer-price">
@@ -94,7 +93,7 @@ const ProductCard = ({ product }) => {
           )}
         </div>
         
-        {/* --- 7. BOTÓN DE AÑADIR (AÑADIDO) --- */}
+        {/* --- BOTÓN DE AÑADIR --- */}
         {/* Este wrapper ayuda a empujar el botón al fondo */}
         <div className="card-button-wrapper">
           <Button 
@@ -105,6 +104,11 @@ const ProductCard = ({ product }) => {
             {isOutOfStock ? 'Agotado' : 'Añadir al Carrito'}
           </Button>
         </div>
+
+      <SuccessToast 
+        message="¡Producto añadido!" 
+        isVisible={showToast} 
+      />
 
       </div>
     </Link>
