@@ -20,7 +20,6 @@ const LOW_STOCK_THRESHOLD = 10;
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
   const { triggerToast } = useToast();
-  const [showToast, setShowToast] = useState(false);
   
   const { 
     product_id, 
