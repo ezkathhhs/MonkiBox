@@ -1,25 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../api/axiosConfig'; // Usamos nuestra api configurada
 import TiendaLayout from '../components/4_templates/TiendaLayout';
 import ImageCarousel from '../components/3_organisms/ImageCarousel';
-import './TiendaHomePage.css'; // CSS para el contenido extra
+import ProductGrid from '../components/3_organisms/ProductGrid'; // Importamos el Grid
+import './TiendaHomePage.css';
 
 const TiendaHomePage = () => {
+  const [topProducts, setTopProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Cargar productos más vendidos
+  useEffect(() => {
+    const fetchTopProducts = async () => {
+      try {
+        setLoading(true);
+        const response = await api.get('/reports/top-selling');
+        setTopProducts(response.data);
+      } catch (error) {
+        console.error("Error cargando destacados:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTopProducts();
+  }, []);
+
   return (
     <TiendaLayout>
-      {/* 1. Carrusel Requerido */}
+      {/* 1. Carrusel */}
       <ImageCarousel />
 
-      {/* 2. Contenido Adicional (Libertad Creativa) */}
+      {/* 2. Sección de Productos Destacados (Más Vendidos) */}
       <section className="promo-section">
         <h2>Productos Destacados</h2>
-        <p>¡Echa un vistazo a lo más popular de la semana!</p>
-        {/* Aquí iría un organismo <ProductGrid> en el futuro */}
-        <div className="placeholder-grid">
-          <div className="placeholder-card">[Producto 1]</div>
-          <div className="placeholder-card">[Producto 2]</div>
-          <div className="placeholder-card">[Producto 3]</div>
-          <div className="placeholder-card">[Producto 4]</div>
-        </div>
+        <p>¡Los favoritos de la comunidad MonkiBox!</p>
+        
+        {loading ? (
+          <p>Cargando lo mejor de lo mejor...</p>
+        ) : (
+          // Reutilizamos tu ProductGrid existente
+          <div className="home-product-grid-wrapper">
+             <ProductGrid products={topProducts} />
+          </div>
+        )}
       </section>
 
     </TiendaLayout>

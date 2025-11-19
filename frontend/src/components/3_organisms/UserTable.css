@@ -73,3 +73,10 @@ tbody tr:hover {
 .dropdown-menu button.delete:hover {
   background-color: #fff5f5;
 }
+
+.dropdown-menu.open-up {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 5px;
+  transform-origin: bottom right;
+}
