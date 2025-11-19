@@ -567,15 +567,14 @@ app.get('/api/reports/summary', verifyToken, isAdmin, async (req, res) => {
 // --- 20. OBTENER PRODUCTOS POPULARES (Más Vendidos + Stock) ---
 app.get('/api/reports/top-selling', async (req, res) => {
   try {
-    // Ahora hacemos un JOIN para obtener el stock del producto
     const topProducts = await pool.query(
       `SELECT 
-         p.name AS product_name, 
-         SUM(oi.quantity) AS total_sold,
-         p.stock
+         p.*, 
+         p.name AS product_name,
+         SUM(oi.quantity) AS total_sold
        FROM order_items oi
        JOIN products p ON oi.product_id = p.product_id
-       GROUP BY p.name, p.stock
+       GROUP BY p.product_id
        ORDER BY total_sold DESC
        LIMIT 5`
     );
