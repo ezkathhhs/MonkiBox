@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useToast } from '../../context/ToastContext';
 import Button from '../1_atoms/Button';
 import SuccessToast from '../1_atoms/SuccessToast';
 import './ProductCard.css';
@@ -18,6 +19,7 @@ const LOW_STOCK_THRESHOLD = 10;
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
+  const { triggerToast } = useToast();
   const [showToast, setShowToast] = useState(false);
   
   const { 
@@ -38,8 +40,7 @@ const ProductCard = ({ product }) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product, 1);
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 3000);
+    triggerToast('¡Producto añadido!');
   };
 
   return (
@@ -103,11 +104,6 @@ const ProductCard = ({ product }) => {
             {isOutOfStock ? 'Agotado' : 'Añadir al Carrito'}
           </Button>
         </div>
-
-      <SuccessToast 
-        message="¡Producto añadido!" 
-        isVisible={showToast} 
-      />
 
       </div>
     </Link>

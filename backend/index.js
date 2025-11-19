@@ -335,7 +335,7 @@ app.get('/api/related-products/:id', async (req, res) => {
 });
 
 // --- 13. CREAR NUEVA ORDEN (CHECKOUT) ---
-app.post('/api/orders', verifyToken, async (req, res) => {
+app.post('/api/orders', async (req, res) => {
 
   console.log('INTENTO DE PAGO RECIBIDO. Verificando datos...');
   // Nota: En un proyecto real, usaríamos una "transacción" de base de datos aquí.

@@ -1,7 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// Context
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
+import { ToastProvider } from './context/ToastContext';
 
 // Páginas Públicas
 import LoginPage from './pages/LoginPage';
@@ -34,36 +37,36 @@ function App() {
       <BrowserRouter>
         <CartProvider>
           <AuthProvider>
-            <Routes>
-              
-              {/* --- RUTAS DE LA TIENDA --- */}
-              <Route path="/" element={<TiendaHomePage />} />
+            <ToastProvider>
+              <Routes>
+                {/* --- RUTAS DE LA TIENDA --- */}
+                <Route path="/" element={<TiendaHomePage />} />
 
-              <Route path="/productos" element={<ProductosPage />} />
-              <Route path="/producto/:id" element={<ProductDetailPage />} />
-              <Route path="/categorias" element={<CategoriasPage />} />
-              <Route path="/categoria/:categoryName" element={<CategoryProductsPage />} />
-              <Route path="/ofertas" element={<OfertasPage />} />
-              <Route path="/nosotros" element={<NosotrosPage />} />
-              <Route path="/blogs" element={<BlogsPage />} />
-              <Route path="/contacto" element={<ContactoPage />} />
-              <Route path="/carrito" element={<CarritoPage />} />
-              <Route path="/checkout" element={<CheckoutPage />} />
-              
-
-              {/* --- RUTAS DE AUTENTICACIÓN --- */}
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              
-              {/* --- RUTAS DE ADMIN --- */}
-              <Route path="/dashboard" element={<AdminDashboardPage />} />
-              <Route path="/dashboard/usuarios" element={<AdminUserPage />} />
-              <Route path="/dashboard/productos" element={<AdminProductPage />} />
-              <Route path="/dashboard/ordenes" element={<AdminOrdersPage />} />
-              <Route path="/dashboard/reportes" element={<AdminReportPage />} />
-              <Route path="/dashboard/perfil" element={<AdminProfilePage />} /> 
-              
-            </Routes>
+                <Route path="/productos" element={<ProductosPage />} />
+                <Route path="/producto/:id" element={<ProductDetailPage />} />
+                <Route path="/categorias" element={<CategoriasPage />} />
+                <Route path="/categoria/:categoryName" element={<CategoryProductsPage />} />
+                <Route path="/ofertas" element={<OfertasPage />} />
+                <Route path="/nosotros" element={<NosotrosPage />} />
+                <Route path="/blogs" element={<BlogsPage />} />
+                <Route path="/contacto" element={<ContactoPage />} />
+                <Route path="/carrito" element={<CarritoPage />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
+                
+                {/* --- RUTAS DE AUTENTICACIÓN --- */}
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                
+                {/* --- RUTAS DE ADMIN --- */}
+                <Route path="/dashboard" element={<AdminDashboardPage />} />
+                <Route path="/dashboard/usuarios" element={<AdminUserPage />} />
+                <Route path="/dashboard/productos" element={<AdminProductPage />} />
+                <Route path="/dashboard/ordenes" element={<AdminOrdersPage />} />
+                <Route path="/dashboard/reportes" element={<AdminReportPage />} />
+                <Route path="/dashboard/perfil" element={<AdminProfilePage />} /> 
+                
+              </Routes>
+            </ToastProvider>
           </AuthProvider>
         </CartProvider>
       </BrowserRouter>

@@ -115,21 +115,6 @@
 .status-pill-small.preparando { background-color: #e6f2ff; color: #0056b3; }
 .status-pill-small.finalizado { background-color: #e6f7f0; color: #008a4c; }
 
-.report-list {
-  padding-left: 1.5rem;
-  margin: 0;
-  max-height: 300px;
-  overflow-y: auto;  
-}
-
-.report-list::-webkit-scrollbar {
-  width: 6px;
-}
-.report-list::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 4px;
-}
-
 /* Métricas de Rendimiento */
 .metrics-list {
   display: flex;
@@ -159,4 +144,46 @@
   .charts-row, .tables-row {
     grid-template-columns: 1fr;
   }
+}
+
+.report-list-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+  border: 1px solid #eee;
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+}
+
+.report-list-card h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 0.75rem;
+  flex-shrink: 0;
+}
+
+.report-list {
+  padding-left: 1.5rem;
+  margin: 0;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.report-list::-webkit-scrollbar {
+  width: 8px;
+}
+.report-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+.report-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+.report-list::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
 }
