@@ -7,18 +7,25 @@
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; /* Centra verticalmente */
   z-index: 1050;
   backdrop-filter: blur(3px);
+  padding: 20px; /* Margen de seguridad para que no toque los bordes */
 }
 
 .modal-content {
   background: white;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  width: 90%;
+  width: 100%;
   max-width: 500px;
+  
+  /* --- CAMBIOS PARA RESPONSIVIDAD --- */
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh; /* Altura máxima del 90% de la ventana */
   animation: slide-down 0.3s ease-out;
+  /* ---------------------------------- */
 }
 
 .modal-header {
@@ -27,11 +34,12 @@
   align-items: center;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid #eee;
+  flex-shrink: 0; /* Evita que el header se aplaste */
 }
 
 .modal-header h2 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: #333;
 }
 
@@ -50,11 +58,15 @@
 
 .modal-body {
   padding: 1.5rem;
+  
+  /* --- SCROLL INTERNO --- */
+  overflow-y: auto; /* Si el contenido es muy largo, aparece scroll aquí */
+  /* ---------------------- */
 }
 
 @keyframes slide-down {
   from {
-    transform: translateY(-50px);
+    transform: translateY(-30px);
     opacity: 0;
   }
   to {

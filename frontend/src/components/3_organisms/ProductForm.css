@@ -1,41 +1,52 @@
-/* Copia todo el contenido de UserForm.css aquí */
+/* Hacemos los márgenes más pequeños */
+.form-field, 
 .form-field-select {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem; /* Reducido de 1.5rem */
   text-align: left;
 }
 
-.form-field-select label {
+.form-field-select label,
+.form-field label { /* Asumiendo que FormField.css usa esta estructura */
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem; /* Reducido */
   color: #555;
   font-weight: 600;
+  font-size: 0.9rem; /* Letra un poco más pequeña */
 }
 
-.form-field-select select {
-  width: 100%;
-  padding: 0.7rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
-  background-color: white;
-}
-
-/* --- AÑADE ESTO --- */
-
-/* Estilo para el Textarea */
+/* Inputs más compactos */
+.form-field-select select,
+.form-field input,
 .form-field-select textarea {
   width: 100%;
-  padding: 0.7rem;
+  padding: 0.5rem 0.7rem; /* Padding reducido */
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 1rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  resize: vertical; /* Permite redimensionar verticalmente */
+  font-size: 0.95rem;
+  background-color: white;
+  box-sizing: border-box;
 }
 
-/* Grid para poner 2 campos en una fila */
+.form-field-select textarea {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  resize: vertical;
+  min-height: 80px; /* Altura mínima controlada */
+}
+
+/* Grid de 2 columnas más ajustado */
 .form-grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+}
+
+/* Ajuste para móviles o pantallas muy pequeñas */
+@media (max-height: 700px) {
+  .form-field, 
+  .form-field-select {
+    margin-bottom: 0.8rem;
+  }
+  .form-field-select textarea {
+    rows: 2; /* Menos filas por defecto */
+  }
 }

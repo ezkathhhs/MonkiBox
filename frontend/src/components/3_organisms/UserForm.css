@@ -1,20 +1,33 @@
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Espacio entre elementos */
+}
+
 .form-field-select {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   text-align: left;
 }
 
 .form-field-select label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   color: #555;
   font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .form-field-select select {
   width: 100%;
-  padding: 0.7rem;
+  padding: 0.5rem 0.7rem;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   background-color: white;
+}
+
+/* Estilos globales para inputs dentro de este formulario si es necesario */
+.user-form input {
+  padding: 0.5rem 0.7rem !important; /* Forzamos padding más pequeño */
+  margin-bottom: 0.8rem !important;
 }
