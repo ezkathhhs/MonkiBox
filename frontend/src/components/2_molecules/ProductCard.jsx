@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import { useToast } from '../../context/ToastContext';
 import Button from '../1_atoms/Button';
-import SuccessToast from '../1_atoms/SuccessToast';
 import './ProductCard.css';
 
 // Función para formatear el precio (se mantiene)
