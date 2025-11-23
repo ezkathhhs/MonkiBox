@@ -698,7 +698,7 @@ app.get('/', (req, res) => {
 });
 
 // Escuchamos en '0.0.0.0' para ser accesibles desde Docker/Render
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, '0.0.0.0', () => { 
   console.log(`Servidor corriendo en el puerto ${port}`);
   testConnection();
 });
