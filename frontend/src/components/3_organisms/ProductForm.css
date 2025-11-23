@@ -1,31 +1,37 @@
 /* =========================================
-   1. ESTANDARIZACIÓN DE ESPACIOS (Wrappers)
+   1. CONTENEDOR PRINCIPAL (La clave de la simetría)
    ========================================= */
 
-/* Definimos el espacio uniforme entre filas */
+/* Convertimos el formulario en una columna flexible.
+   'gap' se encarga de que el espacio entre CADA fila sea idéntico. */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem; /* Espacio UNIFORME entre Nombre, Descripción, Grillas, Estado, etc. */
+  width: 100%;
+}
+
+/* Eliminamos márgenes individuales para que 'gap' controle todo */
 .form-field, 
 .form-field-select,
 .form-grid-2 {
-  margin-bottom: 1.2rem !important; /* Espacio idéntico para todos */
+  margin-bottom: 0 !important; 
   width: 100%;
-  box-sizing: border-box;
-}
-
-/* El label siempre con el mismo espacio y tamaño */
-.form-field label,
-.form-field-select label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #555;
-  font-weight: 600;
-  font-size: 0.95rem;
 }
 
 /* =========================================
-   2. ESTANDARIZACIÓN DE INPUTS (Campos)
+   2. ESTILOS DE ETIQUETAS E INPUTS
    ========================================= */
 
-/* Todos los campos (texto y select) con la misma altura y estilo */
+.form-field label,
+.form-field-select label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #555;
+  font-weight: 600; /* Grosor de etiqueta */
+  font-size: 0.95rem;
+}
+
 .form-field input,
 .form-field-select select,
 .form-field-select textarea {
@@ -34,28 +40,27 @@
   border-radius: 6px;
   font-size: 1rem;
   background-color: white;
-  box-sizing: border-box; /* Vital para que el padding no cambie el tamaño */
+  box-sizing: border-box;
   font-family: inherit;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s;
 }
 
-/* Altura FIJA para inputs y selects (para que sean idénticos) */
+/* Altura idéntica para Inputs y Selects */
 .form-field input,
 .form-field-select select {
-  height: 45px !important; /* Altura estándar */
-  padding: 0 10px; /* Padding lateral */
-  line-height: 45px; /* Centrado vertical del texto */
+  height: 45px !important;
+  padding: 0 10px;
+  line-height: normal; /* Deja que flex centre el texto */
 }
 
-/* Excepción: Textarea (Descripción) más alto */
+/* Textarea más grande */
 .form-field-select textarea {
-  height: 100px !important; /* Altura fija para descripción */
-  padding: 10px; /* Padding normal */
-  line-height: 1.5;
-  resize: none; /* Evitamos que el usuario rompa el diseño */
+  height: 100px !important;
+  padding: 10px;
+  resize: none;
 }
 
-/* Efecto Focus (cuando escribes) */
+/* Focus */
 .form-field input:focus,
 .form-field-select select:focus,
 .form-field-select textarea:focus {
@@ -65,59 +70,74 @@
 }
 
 /* =========================================
-   3. GRILLAS (2 Columnas)
+   3. GRILLAS INTERNAS
    ========================================= */
 
 .form-grid-2 {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 50% - 50% */
+  grid-template-columns: 1fr 1fr;
   gap: 1.2rem; /* Mismo espacio horizontal que vertical */
 }
 
-/* Dentro de la grilla, quitamos el margen inferior de los hijos 
-   para que mande el margen del contenedor padre (.form-grid-2) */
-.form-grid-2 .form-field,
-.form-grid-2 .form-field-select {
-  margin-bottom: 0 !important;
+/* =========================================
+   4. BOTÓN (Arreglado)
+   ========================================= */
+
+button[type="submit"] {
+  margin-top: 0.5rem; /* Un poquito extra para separarlo del último input */
+  height: 45px; /* Misma altura que los inputs */
+  width: 100%;
+  
+  /* Centrado Perfecto */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Estilo de Texto (Restaurado) */
+  font-weight: 700 !important; /* Letra gorda como te gustaba */
+  font-size: 1.05rem !important;
+  text-transform: uppercase; /* Opcional: hace que se vea más botón */
+  letter-spacing: 0.5px;
 }
 
 /* =========================================
-   4. MODO COMPACTO (Notebooks / Pantallas Bajas)
+   5. MODO COMPACTO (Notebooks)
    ========================================= */
 
 @media (max-height: 800px) {
   
-  /* Reducimos el espacio entre filas uniformemente */
-  .form-field, 
-  .form-field-select,
-  .form-grid-2 {
-    margin-bottom: 0.8rem !important; /* Espacio más pequeño pero igual en todos */
+  /* Reducimos el 'gap' global del formulario */
+  form {
+    gap: 0.6rem; /* Espacio reducido uniformemente */
   }
 
-  /* Etiquetas más pegadas al input */
+  .form-grid-2 {
+    gap: 0.6rem;
+  }
+
+  /* Etiquetas más pequeñas */
   .form-field label,
   .form-field-select label {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
     font-size: 0.85rem;
   }
 
-  /* Inputs más bajos (pero todos iguales) */
+  /* Inputs más bajos */
   .form-field input,
   .form-field-select select {
-    height: 38px !important; /* Altura compacta uniforme */
+    height: 36px !important;
     font-size: 0.9rem;
-    line-height: 38px;
   }
 
-  /* Descripción más baja */
+  /* Textarea más bajo */
   .form-field-select textarea {
-    height: 70px !important;
+    height: 60px !important;
   }
 
-  /* Ajuste del botón al final */
+  /* Botón ajustado */
   button[type="submit"] {
-    margin-top: 0.5rem;
+    margin-top: 0.2rem;
     height: 40px;
-    font-size: 1rem;
+    font-size: 0.95rem !important;
   }
 }
