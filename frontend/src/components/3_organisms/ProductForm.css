@@ -1,84 +1,52 @@
-/* --- ESTILOS BASE (Pantallas Grandes) --- */
+/* Hacemos los márgenes más pequeños */
 .form-field, 
 .form-field-select {
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; /* Reducido de 1.5rem */
   text-align: left;
 }
 
-.form-field label,
-.form-field-select label {
+.form-field-select label,
+.form-field label { /* Asumiendo que FormField.css usa esta estructura */
   display: block;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem; /* Reducido */
   color: #555;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.9rem; /* Letra un poco más pequeña */
 }
 
-.form-field input,
+/* Inputs más compactos */
 .form-field-select select,
+.form-field input,
 .form-field-select textarea {
   width: 100%;
-  padding: 0.6rem 0.8rem;
+  padding: 0.5rem 0.7rem; /* Padding reducido */
   border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
+  border-radius: 5px;
+  font-size: 0.95rem;
   background-color: white;
   box-sizing: border-box;
-  transition: border-color 0.2s;
-}
-
-.form-field input:focus,
-.form-field-select select:focus,
-.form-field-select textarea:focus {
-  border-color: #f7c873;
-  outline: none;
 }
 
 .form-field-select textarea {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   resize: vertical;
-  min-height: 80px;
+  min-height: 80px; /* Altura mínima controlada */
 }
 
-/* Grid de 2 columnas */
+/* Grid de 2 columnas más ajustado */
 .form-grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
-@media (max-height: 800px) {
-
+/* Ajuste para móviles o pantallas muy pequeñas */
+@media (max-height: 700px) {
   .form-field, 
   .form-field-select {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
   }
-
-  .form-field label,
-  .form-field-select label {
-    margin-bottom: 0.1rem;
-    font-size: 0.85rem; 
-  }
-
-  .form-field input,
-  .form-field-select select,
   .form-field-select textarea {
-    padding: 0.35rem 0.5rem;
-    font-size: 0.9rem;
-    height: auto;
-  }
-
-  .form-field-select textarea {
-    min-height: 50px; 
-    height: 50px; 
-  }
-
-  .form-grid-2 {
-    gap: 0.5rem;
-  }
-  
-  button[type="submit"] {
-    margin-top: 0.5rem;
-    padding: 0.6rem;
+    rows: 2; /* Menos filas por defecto */
   }
 }
