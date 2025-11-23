@@ -1,84 +1,123 @@
-/* --- ESTILOS BASE (Pantallas Grandes) --- */
+/* =========================================
+   1. ESTANDARIZACIÓN DE ESPACIOS (Wrappers)
+   ========================================= */
+
+/* Definimos el espacio uniforme entre filas */
 .form-field, 
-.form-field-select {
-  margin-bottom: 1rem;
-  text-align: left;
+.form-field-select,
+.form-grid-2 {
+  margin-bottom: 1.2rem !important; /* Espacio idéntico para todos */
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* El label siempre con el mismo espacio y tamaño */
 .form-field label,
 .form-field-select label {
   display: block;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
   color: #555;
   font-weight: 600;
   font-size: 0.95rem;
 }
 
+/* =========================================
+   2. ESTANDARIZACIÓN DE INPUTS (Campos)
+   ========================================= */
+
+/* Todos los campos (texto y select) con la misma altura y estilo */
 .form-field input,
 .form-field-select select,
 .form-field-select textarea {
   width: 100%;
-  padding: 0.6rem 0.8rem;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
   background-color: white;
-  box-sizing: border-box;
-  transition: border-color 0.2s;
+  box-sizing: border-box; /* Vital para que el padding no cambie el tamaño */
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+/* Altura FIJA para inputs y selects (para que sean idénticos) */
+.form-field input,
+.form-field-select select {
+  height: 45px !important; /* Altura estándar */
+  padding: 0 10px; /* Padding lateral */
+  line-height: 45px; /* Centrado vertical del texto */
+}
+
+/* Excepción: Textarea (Descripción) más alto */
+.form-field-select textarea {
+  height: 100px !important; /* Altura fija para descripción */
+  padding: 10px; /* Padding normal */
+  line-height: 1.5;
+  resize: none; /* Evitamos que el usuario rompa el diseño */
+}
+
+/* Efecto Focus (cuando escribes) */
 .form-field input:focus,
 .form-field-select select:focus,
 .form-field-select textarea:focus {
   border-color: #f7c873;
   outline: none;
+  box-shadow: 0 0 0 3px rgba(247, 200, 115, 0.2);
 }
 
-.form-field-select textarea {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  resize: vertical;
-  min-height: 80px;
-}
+/* =========================================
+   3. GRILLAS (2 Columnas)
+   ========================================= */
 
-/* Grid de 2 columnas */
 .form-grid-2 {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  grid-template-columns: 1fr 1fr; /* 50% - 50% */
+  gap: 1.2rem; /* Mismo espacio horizontal que vertical */
 }
 
-@media (max-height: 800px) {
+/* Dentro de la grilla, quitamos el margen inferior de los hijos 
+   para que mande el margen del contenedor padre (.form-grid-2) */
+.form-grid-2 .form-field,
+.form-grid-2 .form-field-select {
+  margin-bottom: 0 !important;
+}
 
+/* =========================================
+   4. MODO COMPACTO (Notebooks / Pantallas Bajas)
+   ========================================= */
+
+@media (max-height: 800px) {
+  
+  /* Reducimos el espacio entre filas uniformemente */
   .form-field, 
-  .form-field-select {
-    margin-bottom: 0.5rem;
+  .form-field-select,
+  .form-grid-2 {
+    margin-bottom: 0.8rem !important; /* Espacio más pequeño pero igual en todos */
   }
 
+  /* Etiquetas más pegadas al input */
   .form-field label,
   .form-field-select label {
-    margin-bottom: 0.1rem;
-    font-size: 0.85rem; 
+    margin-bottom: 0.2rem;
+    font-size: 0.85rem;
   }
 
+  /* Inputs más bajos (pero todos iguales) */
   .form-field input,
-  .form-field-select select,
-  .form-field-select textarea {
-    padding: 0.35rem 0.5rem;
+  .form-field-select select {
+    height: 38px !important; /* Altura compacta uniforme */
     font-size: 0.9rem;
-    height: auto;
+    line-height: 38px;
   }
 
+  /* Descripción más baja */
   .form-field-select textarea {
-    min-height: 50px; 
-    height: 50px; 
+    height: 70px !important;
   }
 
-  .form-grid-2 {
-    gap: 0.5rem;
-  }
-  
+  /* Ajuste del botón al final */
   button[type="submit"] {
     margin-top: 0.5rem;
-    padding: 0.6rem;
+    height: 40px;
+    font-size: 1rem;
   }
 }
