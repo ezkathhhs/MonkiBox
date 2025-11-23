@@ -18,7 +18,6 @@ const ProductForm = ({ initialData, onSubmit, buttonText }) => {
   useEffect(() => {
     if (initialData) {
       const basePrice = initialData.old_price ? initialData.old_price : initialData.price;
-
       setFormData({
         name: initialData.name || '',
         description: initialData.description || '',
@@ -30,7 +29,6 @@ const ProductForm = ({ initialData, onSubmit, buttonText }) => {
         discount_percentage: initialData.discount_percentage || 0,
       });
     } else {
-      // Reset para crear
       setFormData({
         name: '', description: '', price: '', stock: '', 
         category: 'BlindBox', status: 'activo', image_url: '', discount_percentage: 0
@@ -49,7 +47,8 @@ const ProductForm = ({ initialData, onSubmit, buttonText }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    /* AQUÍ ESTÁ EL CAMBIO CLAVE: className="product-form-container" */
+    <form onSubmit={handleSubmit} className="product-form-container">
       <FormField
         label="Nombre del Producto"
         type="text"
