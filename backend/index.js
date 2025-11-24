@@ -397,44 +397,7 @@ app.post('/api/orders', async (req, res) => {
   }
 });
 
-// --- 14. OBTENER ESTADÍSTICAS DEL DASHBOARD ---
-app.get('/api/stats/summary', verifyToken, isAdmin, async (req, res) => {
-  try {
-    // 1. Contar Productos
-    const productsQuery = pool.query("SELECT COUNT(*) FROM products");
-    
-    // 2. Contar Usuarios
-    const usersQuery = pool.query("SELECT COUNT(*) FROM users");
-    
-    // 3. Contar Compras (Órdenes)
-    const ordersQuery = pool.query("SELECT COUNT(*) FROM orders");
-
-    // Ejecutamos las 3 consultas al mismo tiempo
-    const [productsResult, usersResult, ordersResult] = await Promise.all([
-      productsQuery,
-      usersQuery,
-      ordersQuery
-    ]);
-
-    // Extraemos los números
-    const productsCount = parseInt(productsResult.rows[0].count, 10);
-    const usersCount = parseInt(usersResult.rows[0].count, 10);
-    const ordersCount = parseInt(ordersResult.rows[0].count, 10);
-
-    // 4. Devolvemos el objeto
-    res.status(200).json({
-      products: productsCount,
-      users: usersCount,
-      orders: ordersCount
-    });
-
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Error en el servidor');
-  }
-});
-
-// --- 15. OBTENER TODAS LAS ÓRDENES (Para Admin) ---
+// --- 14. OBTENER TODAS LAS ÓRDENES (Para Admin) ---
 app.get('/api/orders', verifyToken, isAdmin, async (req, res) => {
   try {
     // Obtenemos las órdenes, de la más nueva a la más antigua
@@ -448,7 +411,7 @@ app.get('/api/orders', verifyToken, isAdmin, async (req, res) => {
   }
 });
 
-// --- 16. OBTENER DETALLES DE UNA ORDEN (Para Modal) ---
+// --- 15. OBTENER DETALLES DE UNA ORDEN (Para Modal) ---
 // Este endpoint devuelve los datos TAL CUAL los necesita el OrderSuccessModal
 app.get('/api/order-details/:id', verifyToken, isAdmin, async (req, res) => {
   try {
@@ -475,7 +438,7 @@ app.get('/api/order-details/:id', verifyToken, isAdmin, async (req, res) => {
   }
 });
 
-// --- 17. ACTUALIZAR ESTADO DE UNA ORDEN ---
+// --- 16. ACTUALIZAR ESTADO DE UNA ORDEN ---
 app.put('/api/order-status/:id', verifyToken, isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
@@ -498,7 +461,7 @@ app.put('/api/order-status/:id', verifyToken, isAdmin, async (req, res) => {
   }
 });
 
-// --- 18. OBTENER ÓRDENES DE UN USUARIO ESPECÍFICO ---
+// --- 17. OBTENER ÓRDENES DE UN USUARIO ESPECÍFICO ---
 app.get('/api/user-orders/:userId', verifyToken, isAdmin, async (req, res) => {
   try {
     const { userId } = req.params;
@@ -518,7 +481,7 @@ app.get('/api/user-orders/:userId', verifyToken, isAdmin, async (req, res) => {
   }
 });
 
-// --- 19. OBTENER REPORTES DE RESUMEN (KPIs + Métricas) ---
+// --- 18. OBTENER REPORTES DE RESUMEN (KPIs + Métricas) ---
 app.get('/api/reports/summary', verifyToken, isAdmin, async (req, res) => {
   try {
     // Definimos las consultas
@@ -564,7 +527,7 @@ app.get('/api/reports/summary', verifyToken, isAdmin, async (req, res) => {
   }
 });
 
-// --- 20. OBTENER PRODUCTOS POPULARES (Más Vendidos + Stock) ---
+// --- 19. OBTENER PRODUCTOS POPULARES (Más Vendidos + Stock) ---
 app.get('/api/reports/top-selling', async (req, res) => {
   try {
     const topProducts = await pool.query(
@@ -585,7 +548,7 @@ app.get('/api/reports/top-selling', async (req, res) => {
   }
 });
 
-// --- 21. OBTENER ÓRDENES RECIENTES (Igual que antes) ---
+// --- 20. OBTENER ÓRDENES RECIENTES (Igual que antes) ---
 app.get('/api/reports/recent-orders', verifyToken, isAdmin, async (req, res) => {
   try {
     const recentOrders = await pool.query(
@@ -598,7 +561,7 @@ app.get('/api/reports/recent-orders', verifyToken, isAdmin, async (req, res) => 
   }
 });
 
-// --- 22. NUEVO: VENTAS POR DÍA (Para Gráfico de Línea) ---
+// --- 21. NUEVO: VENTAS POR DÍA (Para Gráfico de Línea) ---
 app.get('/api/reports/sales-by-day', verifyToken, isAdmin, async (req, res) => {
   try {
     // Agrupa las ventas por día de la última semana
@@ -618,7 +581,7 @@ app.get('/api/reports/sales-by-day', verifyToken, isAdmin, async (req, res) => {
   }
 });
 
-// --- 23. NUEVO: DISTRIBUCIÓN DE CATEGORÍAS ---
+// --- 22. NUEVO: DISTRIBUCIÓN DE CATEGORÍAS ---
 app.get('/api/reports/category-distribution', verifyToken, isAdmin, async (req, res) => {
   try {
     const categoryDist = await pool.query(`
@@ -637,7 +600,7 @@ app.get('/api/reports/category-distribution', verifyToken, isAdmin, async (req, 
   }
 });
 
-// --- 24. NUEVO: REPORTE POR PRODUCTO ID ---
+// --- 23. NUEVO: REPORTE POR PRODUCTO ID ---
 app.get('/api/reports/product/:id', verifyToken, isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
@@ -684,6 +647,43 @@ app.get('/api/reports/product/:id', verifyToken, isAdmin, async (req, res) => {
       totalUnitsSold: parseInt(salesRes.rows[0].totalunitssold),
       totalRevenue: parseFloat(salesRes.rows[0].totalrevenue),
       recentOrders: ordersRes.rows
+    });
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Error en el servidor');
+  }
+});
+
+// --- 24. OBTENER ESTADÍSTICAS DEL DASHBOARD ---
+app.get('/api/stats/summary', verifyToken, isAdmin, async (req, res) => {
+  try {
+    // 1. Contar Productos
+    const productsQuery = pool.query("SELECT COUNT(*) FROM products");
+    
+    // 2. Contar Usuarios
+    const usersQuery = pool.query("SELECT COUNT(*) FROM users");
+    
+    // 3. Contar Compras (Órdenes)
+    const ordersQuery = pool.query("SELECT COUNT(*) FROM orders");
+
+    // Ejecutamos las 3 consultas al mismo tiempo
+    const [productsResult, usersResult, ordersResult] = await Promise.all([
+      productsQuery,
+      usersQuery,
+      ordersQuery
+    ]);
+
+    // Extraemos los números
+    const productsCount = parseInt(productsResult.rows[0].count, 10);
+    const usersCount = parseInt(usersResult.rows[0].count, 10);
+    const ordersCount = parseInt(ordersResult.rows[0].count, 10);
+
+    // 4. Devolvemos el objeto
+    res.status(200).json({
+      products: productsCount,
+      users: usersCount,
+      orders: ordersCount
     });
 
   } catch (err) {
